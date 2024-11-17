@@ -1,10 +1,10 @@
 export class Stack {
   constructor() {
-    this.items = [];
+    this[_items] = [];
   }
 
   push(element) {
-    this.items.push(element)
+    this[_items].push(element)
   }
 
   pop() {
@@ -28,6 +28,8 @@ export class Stack {
   }
 
   print() {
-    console.log(this.items.toString())
+    console.log(this[_items].toString())
   }
 }
+
+let _items = Symbol();
