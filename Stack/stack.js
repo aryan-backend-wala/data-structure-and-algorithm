@@ -1,35 +1,44 @@
-export class Stack {
-  constructor() {
-    this[_items] = [];
-  }
 
-  push(element) {
-    this[_items].push(element)
-  }
+export let Stack = (function () {
+  const items = new WeakMap();
+  class Stack {
+    constructor() {
+      items.set(this, []);
+    }
 
-  pop() {
-    return this.items.pop();
-  }
+    push(element) {
+      let s = items.get(this)
+      s.push(element)
+    }
 
-  peek() {
-    return this.items[this.items.length - 1]
-  }
+    pop() {
+      let s = items.get(this);
+      return s.pop();
+    }
 
-  isEmpty(){
-    return this.items.length === 0;
-  }
+    peek() {
+      let s = items.get(this)
+      return s[s.length - 1]
+    }
 
-  size() {
-    return this.items.length
-  }
+    isEmpty() {
+      let s = items.get(this)
+      return s.length === 0;
+    }
 
-  clear() {
-    this.items = []
-  }
+    size() {
+      let s = items.get(this)
+      return s.length
+    }
 
-  print() {
-    console.log(this[_items].toString())
-  }
-}
+    clear() {
+      items.set(this, [])
+    }
 
-let _items = Symbol();
+    print() {
+      let s = items.get(this)
+      console.log(s.toString())
+    }
+  }
+  return Stack
+})();
