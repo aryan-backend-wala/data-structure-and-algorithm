@@ -1,3 +1,5 @@
+import { decimal2Binary } from "../utils/decimalToBinary.js";
+
 function findMaximumXOR(nums) {
   let maxXOR = 0;
   let mask = 0;
@@ -8,7 +10,7 @@ function findMaximumXOR(nums) {
     let prefixes = new Set();
 
     for(let num of nums) {
-      console.log(`num and mask | ${num} | ${mask} = ${num & mask}`)
+      console.log(`num and mask | ${num} ${decimal2Binary(num)} | ${mask} = ${num & mask}`)
       prefixes.add(num & mask)
     }
 
@@ -27,5 +29,5 @@ function findMaximumXOR(nums) {
   return maxXOR
 }
 
-const nums = [3, 10, 5, 25, 2, 8];
-console.log(findMaximumXOR(nums));``
+const nums = [1, 1, 2, 2, 1, 3];
+console.log(findMaximumXOR(nums));

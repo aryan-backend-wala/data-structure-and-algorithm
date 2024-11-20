@@ -8,13 +8,14 @@ const cost = [
 
 
 // A -> B -> C -> D = 10 + 35 = 45 + 30 = 75 + 20 = 95 *
-// A -> B -> D -> C = 10 + 25 = 35 + 30 = 65 + 15 = 80 *
 // A -> C -> B -> D = 15 + 35 = 50 + 25 = 75 + 20 = 95 * 
-// A -> C -> D -> B = 15 + 30 = 45 + 25 = 70 + 10 = 80 *
+// A -> B -> D -> C = 10 + 25 = 35 + 30 = 65 + 15 = 80 *
 // A -> D -> B -> C = 20 + 25 = 45 + 35 = 80
-// A -> D -> C -> B= 20 + 30 = 50 + 35 = 85
+// A -> C -> D -> B = 15 + 30 = 45 + 25 = 70 + 10 = 80 *
+// A -> D -> C -> B = 20 + 30 = 50 + 35 = 85
+
 // RESULT
-// A -> B -> D -> C -> A = 80
+// A -> B -> D -> C -> A = 80 
 
 // A -> B -> C -> D = 10 + 35 = 45 + 30 = 75
 // A -> B -> D -> C = 10 + 25 = 35 + 30 = 65
@@ -39,8 +40,6 @@ const cost = [
 // 1100 20 + 15 = 35
 // 1101 20 + 15 + 0 = 35
 // 1110 20 + 15 + 10 = 45
-
-console.log(tsp(cost));
 
 function tsp(cost) {
   const n = cost.length;
@@ -73,3 +72,31 @@ function tsp(cost) {
   return minCost
 }
 
+function tspMe(cost){
+  const n = cost.length;
+  const dp = Array(1 << n).fill(null).map(() => Array(n).fill(Infinity));
+
+  dp[1][0] = 0;
+
+  for(let mask=1;mask < (1 << n);mask++){
+    for(let i=0;i<n;i++){
+      if(!(mask & (1 << i))) continue
+
+      for(let j=0;j<n;j++){
+        if(mask & (1 << j)) continue
+
+        let newMask = mask | (1 << j)
+        dp[newMask][j] = Math.min(dp[newMask][j], dp[mask][i] + cost[i][j])
+      }
+    }
+  }
+
+  let minCost = Infinity
+  for(let i=1;i<n;i++){
+    minCost = Math.min(minCost, dp[(1 << n) - 1][i] + cost[i][0])
+  }
+  console.log(dp)
+  return minCost;
+}
+tsp(cost)
+// console.log(tspMe(cost))
