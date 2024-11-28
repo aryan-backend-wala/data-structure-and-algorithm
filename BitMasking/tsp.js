@@ -18,10 +18,10 @@ const cost = [
 // A -> B -> D -> C -> A = 80 
 
 // A -> B -> C -> D = 10 + 35 = 45 + 30 = 75
-// A -> B -> D -> C = 10 + 25 = 35 + 30 = 65
 // A -> C -> B -> D = 15 + 35 = 50 + 25 = 75 
-// A -> C -> D -> B = 15 + 30 = 45 + 25 = 70
+// A -> B -> D -> C = 10 + 25 = 35 + 30 = 65
 // A -> D -> B -> C = 20 + 25 = 45 + 35 = 80
+// A -> C -> D -> B = 15 + 30 = 45 + 25 = 70
 // A -> D -> C -> B = 20 + 30 = 50 + 35 = 85
 
 
@@ -85,18 +85,18 @@ function tspMe(cost){
       for(let j=0;j<n;j++){
         if(mask & (1 << j)) continue
 
-        let newMask = mask | (1 << j)
-        dp[newMask][j] = Math.min(dp[newMask][j], dp[mask][i] + cost[i][j])
+        let newMask = mask | (1 << j);
+        dp[newMask][j] = Math.min(dp[newMask][j], dp[mask][i] + cost[i][j]);
       }
     }
   }
 
-  let minCost = Infinity
+  let minCost = Infinity;
   for(let i=1;i<n;i++){
     minCost = Math.min(minCost, dp[(1 << n) - 1][i] + cost[i][0])
   }
-  console.log(dp)
-  return minCost;
+
+  return minCost
 }
 tsp(cost)
 // console.log(tspMe(cost))
