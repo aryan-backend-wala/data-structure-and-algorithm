@@ -1,42 +1,5 @@
 function solveNQueensCMe(n) {
-  const result = [];
-  const board = Array.from({ length: n }, () => Array(n).fill('.')); // Initialize empty board
-
-  function isSafe(row, col) {
-    for (let i = 0; i < row; i++) {
-      console.log(`board[${i}][${col}] = ${board[i][col]}, with row=${row}`)
-      if (board[i][col] === 'Q') {
-        return false;
-      } // Check column
-      console.log(`${col} - (${row} - ${i}) = ${col} - (${row - i}) = board[${i}][${col - (row - i)}]`)
-      if (col - (row - i) >= 0 && board[i][col - (row - i)] === 'Q') return false; // Check left diagonal
-      console.log(`${col} + (${row} - ${i})=${col} + (${row - i}) = board[${i}][${col + (row - i)}]`)
-      if (col + (row - i) < n && board[i][col + (row - i)] === 'Q') return false; // Check right diagonal
-    }
-    return true;
-  }
-
-  function backtrack(row) {
-    console.log('backtrack starts: row=', row);
-    if (row === n) {
-      result.push(board.map(row => row.join(''))); // Add a deep copy of the board
-      console.log(`pushing row`)
-      return;
-    }
-    for (let col = 0; col < n; col++) {
-      console.log('with column=', col);
-      if (isSafe(row, col)) {
-        console.log(`placing queen on board[${row}][${col}]`)
-        board[row][col] = 'Q'; // Place queen
-        backtrack(row + 1);
-        board[row][col] = '.'; // Backtrack
-        console.log(`backtrack from row=${row}, col=${col}`)
-      }
-    }
-  }
-
-  backtrack(0);
-  return result;
+  
 }
 
 function solveNQueens(n) {

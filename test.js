@@ -1,18 +1,24 @@
-class Person {
-  constructor(name) {
-    this._name = name
+const n = 5;
+var countBits = function (n) {
+  const ans = [];
+  for (let i = 0; i <= n; i++) {
+    ans.push(countOnes(i))
   }
+  return ans
+};
 
-  get name() {
-    return this._name
+function countOnes(num) {
+  let count = 0;
+  while(num > 0){
+    num &= num - 1;
+    count++
   }
-
-  set name(value) {
-    this._name = value;
-  }
+  return count;
 }
 
-const p = new Person('Aryan Verma');
-console.log(p.name)
-p.name = 'Gandalf'
-console.log(p.name)
+countBits(n)
+
+function log(msg){
+  if(msg === undefined) return ""
+  console.log(msg)
+}
